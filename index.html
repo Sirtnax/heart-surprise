@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For MaiPimpisa 💖</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: monospace;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        pre {
+            font-size: 12px;
+            line-height: 1.2;
+            white-space: pre-wrap;
+            animation: colorChange 1s infinite alternate;
+        }
+        @keyframes colorChange {
+            0% { color: red; }
+            50% { color: pink; }
+            100% { color: yellow; }
+        }
+    </style>
+</head>
+<body>
+    <pre id="heart"></pre>
+    <script>
+        const text = "MaiPimpisa 💖";
+        function generateHeart(offset) {
+            let heart = "";
+            for (let y = 15; y > -15; y--) {
+                for (let x = -30; x < 30; x++) {
+                    let equation = Math.pow(x * 0.05, 2) + Math.pow(y * 0.1, 2) - 1;
+                    if (Math.pow(equation, 3) - Math.pow(x * 0.05, 2) * Math.pow(y * 0.1, 3) <= 0) {
+                        let charIndex = Math.abs((x - y + offset) % text.length);
+                        heart += text[charIndex];
+                    } else {
+                        heart += " ";
+                    }
+                }
+                heart += "\n";
+            }
+            return heart;
+        }
+
+        let offset = 0;
+        function animateHeart() {
+            document.getElementById("heart").textContent = generateHeart(offset);
+            offset++;
+            setTimeout(animateHeart, 100);
+        }
+        animateHeart();
+    </script>
+</body>
+</html>
